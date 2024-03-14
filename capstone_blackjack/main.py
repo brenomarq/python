@@ -63,7 +63,12 @@ def game() -> None:
 
         if computer_score <= 16:
             computer_cards.append(choice(cards))
-            computer_score += computer_cards[-1]  # Solves bug
+            computer_score = sum(computer_cards)  # Solves computer score bugs
+
+        if user_score > 21 and 11 in user_cards:
+            ace_index = user_cards.index()
+            user_cards[ace_index] = 1
+            user_score = sum(user_score)  # Solves user score bugs
 
         if user_score < 21:
             get_card = input("Type 'y' to get another cards, or 'n' to pass: ")
