@@ -40,7 +40,7 @@ def check_scores(user_score: int, computer_score: int) -> str:
             message = "You win! 🤩"
         else:
             message = "You lose! 😟"
-    elif user_score > 21 and computer_score <= 21:
+    elif user_score > 21:
         message = "You lose! 😟"
     elif computer_score > 21 or user_score > computer_score:
         message = "You win! 🤩"
