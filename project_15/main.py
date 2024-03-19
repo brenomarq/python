@@ -12,11 +12,13 @@ def enough_resources(order: str) -> bool:
     # Check coffee quantity
     if MENU[order]['ingredients']['coffee'] > resources['coffee']:
         print("Sorry, there's not enough coffee.")
+        return False
 
     # Check milk quantity
     if order != "espresso":
         if MENU[order]['ingredients']['milk'] > resources['milk']:
             print("Sorry, there's not enough milk.")
+            return False
 
     return True
 
