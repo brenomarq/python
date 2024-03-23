@@ -14,12 +14,18 @@ class Snake:
 
     def create_snake(self) -> None:
         """Create a default snake."""
-        for index in range(3):
-            segment = Turtle("square")
-            segment.color("white")
-            segment.penup()
-            segment.goto(STARTING_POSITIONS[index])
-            self.segments.append(segment)
+        for position in STARTING_POSITIONS:
+            self.add_segment(position)
+
+    def add_segment(self, position: tuple[int, int]):
+        segment = Turtle("square")
+        segment.color("white")
+        segment.penup()
+        segment.goto(position)
+        self.segments.append(segment)
+
+    def extend(self):
+        self.add_segment(self.segments[-1].position())
 
     def move(self) -> None:
         """Make the snake move."""
