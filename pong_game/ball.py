@@ -1,5 +1,5 @@
 from turtle import Turtle
-STEP = 2
+STEP = 10
 
 class Ball(Turtle):
     def __init__(self) -> None:
@@ -10,6 +10,7 @@ class Ball(Turtle):
         self.speed("slowest")
         self.x_move = STEP
         self.y_move = STEP
+        self.move_speed = 0.1
 
     def move(self) -> None:
         """Make the ball move."""
@@ -25,6 +26,13 @@ class Ball(Turtle):
 
         elif axis == "x":
             self.x_move *= -1
+            self.move_speed *= 0.9
+
+    def restart(self) -> None:
+        """Send the ball back to the initial position (0, 0)."""
+        self.goto(0, 0)
+        self.move_speed = 0.1
+        self.bounce("x")
 
 
 
