@@ -1,5 +1,5 @@
 from turtle import Turtle
-Y_POSITION = 280
+Y_POSITION = 260
 TEXT_ALIGN = "center"
 FONT = ("Courier", 24, "normal")
 
