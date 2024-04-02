@@ -1,9 +1,29 @@
+import pyperclip
 import tkinter as tk
+from random import choice, shuffle, randint
 from tkinter import messagebox
 
 BGCOLOR = "white"
 DATA_FILE = "./data.txt"
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+def generate_password() -> None:
+    """Generates a random password."""
+    password_letters = [choice(letters) for _ in range(randint(8, 10))]
+    password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
+    password_numbers = [choice(numbers) for _ in range(randint(2, 4))]
+    password = password_letters + password_symbols + password_numbers
+
+    shuffle(password)
+
+    new_password = "".join(password)
+
+    password_entry.insert(0, new_password)
+    pyperclip.copy(new_password)
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save() -> None:
@@ -13,17 +33,20 @@ def save() -> None:
     email = email_entry.get()
     password = password_entry.get()
 
-    choice = messagebox.askokcancel(
-        title="Password Manager",
-        message=f"These are the details entered:\nEmail: {email}\nPassword: {password}"
-    )
+    if len(website) == 0 or len(email) == 0 or len(password) == 0:
+        messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty.")
+    else:
+        choice = messagebox.askokcancel(
+            title="Password Manager",
+            message=f"These are the details entered:\nEmail: {email}\nPassword: {password}"
+        )
 
-    if choice:
-        with open(DATA_FILE, "a") as file:
-            file.write(f"{website} | {email} | {password}\n")
+        if choice:
+            with open(DATA_FILE, "a") as file:
+                file.write(f"{website} | {email} | {password}\n")
 
-        website_entry.delete(0, tk.END)
-        password_entry.delete(0, tk.END)
+            website_entry.delete(0, tk.END)
+            password_entry.delete(0, tk.END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -58,7 +81,7 @@ email_entry.insert(0, "personalemail@gmail.com")
 password_entry = tk.Entry(width=31)
 password_entry.grid(row=3, column=1)
 
-gpassword_btn = tk.Button(text="Generate Password", padx=2)
+gpassword_btn = tk.Button(text="Generate Password", command=generate_password, padx=2)
 gpassword_btn.grid(row=3, column=2)
 
 add_pw_btn = tk.Button(text="Add", command=save, width=43)
