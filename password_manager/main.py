@@ -81,6 +81,8 @@ def find_password() -> None:
             title=f"{website} information",
             message=f"Here's your information:\nEmail: {website_info['email']}\nPassword: {website_info['password']}"
         )
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = tk.Tk()
