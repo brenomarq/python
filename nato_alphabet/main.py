@@ -8,15 +8,17 @@ nato_alphabet = {
 }
 
 while True:
-    try:
-        user_word = input("Enter a word: ").upper()
+    user_word = input("Enter a word: ").upper()
 
+    try:
         word_spelling = [
             nato_alphabet[letter]
             for letter in user_word if letter != " "
         ]
+
     except KeyError:
         print("Sorry, only letters are accepted.")
+
     else:
         print(word_spelling)
         break
