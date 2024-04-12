@@ -67,6 +67,3 @@ if is_near:
 else:
 
     print("The ISS is not over your head yet.")
-
-
-
