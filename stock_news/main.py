@@ -32,8 +32,8 @@ if shall_get_news:
     twilio_client = Client(os.environ.get("ACCOUNT_SID"), os.environ.get("AUTH_TOKEN"))
 
     for article in articles:
-        formatted_msg = f"""{msg},\n
-        Headline: {article['title']}\n
+        formatted_msg = f"""{msg},
+        Headline: {article['title']}
         Brief: {article['description']}"""
 
         send_sms(
