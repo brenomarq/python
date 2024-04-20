@@ -1,4 +1,5 @@
 import os
+import smtplib
 from dotenv import load_dotenv, find_dotenv
 from flight_data import FlightData
 from twilio.rest import Client
@@ -19,3 +20,5 @@ class NotificationManager:
             from_=FROM_NUMBER,
             to=TO_NUMBER
         )
+
+        print(message.status)
