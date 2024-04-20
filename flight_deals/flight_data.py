@@ -8,8 +8,8 @@ class FlightData:
         destination_airport: str,
         out_date: str,
         return_date: str,
-        stop_overs: int,
-        via_city: str
+        stop_overs: int = 0,
+        via_city: str = ""
     ) -> None:
         self.price = price
         self.origin_city = origin_city
@@ -18,5 +18,5 @@ class FlightData:
         self.destination_airport = destination_airport
         self.out_date = out_date
         self.return_date = return_date
-        self.stop_overs = stop_overs
+        self.step_overs = stop_overs
         self.via_city = via_city

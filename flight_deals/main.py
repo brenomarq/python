@@ -37,9 +37,10 @@ for row in sheet_data:
 
     flights.append(flight)
 
-
+users = data_manager.get_users()
 for index, row in enumerate(sheet_data):
     flight_data = flights[index]
 
     if flight_data.price < row["lowestPrice"]:
-        notification_manager.send_alert(flight_data)
+        for user in users:
+            notification_manager.send_email(email=user["email"], flight_data=flight_data)

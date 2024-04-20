@@ -4,12 +4,13 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 SHEETY_ENDPOINT = os.environ.get("SHEETY_ENDPOINT")
+USERS_ENDPOINT = os.environ.get("USERS_ENDPOINT")
 
 class DataManager:
     def __init__(self) -> None:
-        self.destination_data = {}
+        self.destination_data = []
 
-    def get_destination_data(self) -> None:
+    def get_destination_data(self) -> list[dict]:
         response = requests.get(url=SHEETY_ENDPOINT)
         response.raise_for_status()
 
@@ -35,15 +36,9 @@ class DataManager:
 
                 print(response.text)
 
-#     def update_destination_codes(self):
-#         for city in self.destination_data:
-#             new_data = {
-#                 "price": {
-#                     "iataCode": city["iataCode"]
-#                 }
-#             }
-#             response = requests.put(
-#                 url=f"{SHEETY_PRICES_ENDPOINT}/{city['id']}",
-#                 json=new_data
-#             )
-#             print(response.text)
+    def get_users(self) -> list[dict]:
+        response = requests.get(url=USERS_ENDPOINT)
+        response.raise_for_status()
+
+        users = response.json()["users"]
+        return users
