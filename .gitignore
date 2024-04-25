@@ -6,11 +6,11 @@ __pycache__
 
 # IDE settings
 .vscode
-
 .DS_Store
 
 # Env variables
 .env
+.cache
 
 #Secret projects
 birthday_wisher
