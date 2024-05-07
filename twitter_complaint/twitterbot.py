@@ -69,11 +69,12 @@ class InternetComplaintTwitterBot:
             By.XPATH,
             value='//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div[1]/div/div/div/div[1]/div[2]/div/div/div/div/div/div/div[2]/div/div/div/div/label/div[1]/div/div/div/div/div/div/div/div/div/div/span'
         )
-        text_area.send_keys(f"[This a bot text]\nHey Internet Provider! Why is my internet speed {self.down}down/\
-        {self.up}up, when I pay for {self.promised[0]}down/{self.promised[1]}up?")
+        text_area.send_keys(f"[This a bot text]\nHey Internet Provider! Why is my internet speed {self.down}down/{self.up}up, when I pay for {self.promised[0]}down/{self.promised[1]}up?")
 
         post_btn = self._driver.find_element(
             By.XPATH,
             value='//*[@id="layers"]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div[1]/div/div/div/div[2]/div[2]/div/div/div/div[4]'
         )
         post_btn.click()
+
+        self._driver.quit()
