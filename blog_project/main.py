@@ -4,7 +4,8 @@ from post import Post
 
 
 def fetch_posts() -> list[Post]:
-    posts_url = 'https://api.npoint.io/c790b4d5cab58020d391'
+    # url to edit data: https://www.npoint.io/docs/087ce95906e07c330408
+    posts_url = 'https://api.npoint.io/087ce95906e07c330408'
 
     response = get(url=posts_url)
     response.raise_for_status()
@@ -22,14 +23,24 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def home():
+def home() -> str:
     all_posts = fetch_posts()
 
     return render_template('index.html', posts=all_posts)
 
 
+@app.route('/about')
+def about() -> str:
+    return render_template('about.html')
+
+
+@app.route('/contact')
+def contact() -> str:
+    return render_template('contact.html')
+
+
 @app.route('/posts/<int:id>')
-def get_post(id: int):
+def get_post(id: int) -> str:
     all_posts = fetch_posts()
 
     post: Post = list(filter(lambda post: post.id == id, all_posts))[0]
