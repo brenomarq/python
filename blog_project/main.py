@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-from datetime import datetime
 from requests import get
 from post import Post
 
