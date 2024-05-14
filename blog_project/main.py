@@ -1,6 +1,11 @@
+import os
 from flask import Flask, render_template
+from flask import request
 from requests import get
+from smtplib import SMTP
 from post import Post
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 
 def fetch_posts() -> list[Post]:
@@ -19,6 +24,20 @@ def fetch_posts() -> list[Post]:
     return posts
 
 
+def send_email(msg_data: dict) -> None:
+    from_email = os.environ.get('EMAIL')
+    password = os.environ.get('PASSWORD')
+
+    if from_email != None and password != None:
+        with SMTP('smtp.gmail.com') as connection:
+            connection.starttls()
+            connection.login(user=from_email, password=password)
+            connection.sendmail(
+                from_addr=from_email,
+                to_addrs=msg_data['email'],
+                msg=msg_data['message'])
+
+
 app = Flask(__name__)
 
 
@@ -34,9 +53,19 @@ def about() -> str:
     return render_template('about.html')
 
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact() -> str:
-    return render_template('contact.html')
+    if request.method == 'GET':
+        return render_template('contact.html', status=False)
+
+    if request.method == 'POST':
+        msg_data = request.form
+
+        send_email(msg_data)
+
+        return render_template('contact.html', status=True)
+
+    return 'Error 404'
 
 
 @app.route('/posts/<int:id>')
