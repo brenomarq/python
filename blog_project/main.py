@@ -25,16 +25,16 @@ def fetch_posts() -> list[Post]:
 
 
 def send_email(msg_data: dict) -> None:
-    from_email = os.environ.get('EMAIL')
+    email = os.environ.get('EMAIL')
     password = os.environ.get('PASSWORD')
 
-    if from_email != None and password != None:
+    if email != None and password != None:
         with SMTP('smtp.gmail.com') as connection:
             connection.starttls()
-            connection.login(user=from_email, password=password)
+            connection.login(user=email, password=password)
             connection.sendmail(
-                from_addr=from_email,
-                to_addrs=msg_data['email'],
+                from_addr=msg_data['email'],
+                to_addrs=email,
                 msg=msg_data['message'])
 
 
